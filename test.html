@@ -18,7 +18,7 @@
 
 		// 지도를 생성한다 
 		var map = new kakao.maps.Map(mapContainer, mapOption); 
-
+/*
 		// 지도에 마커를 생성하고 표시한다
 		var marker = new kakao.maps.Marker({
 		    position: new kakao.maps.LatLng(37.56682, 126.97865), // 마커의 좌표
@@ -33,6 +33,35 @@
 			xAnchor: 0.5, // 컨텐츠의 x 위치
 			yAnchor: 0 // 컨텐츠의 y 위치
 		});
+*/
+	//각 위치 좌표저장된 2차원배열
+	var 좌표 = [[37.619676089470445, 127.04604451657029, "조정규집"], [37.58738698493315, 127.09763955077234, "서일대정문"], 
+		  [37.58594139528723, 127.09702910792369, "서일대후문"]]; 
+		
+/*	for (int i=0;;i++){
+		if(좌표[i][2] == 검색한 역){
+			= i;
+			break;
+		}
+	}*/
+	
+		
+	for(int i = 0; i < array.length; i++){
+		// 지도에 마커를 생성하고 표시한다
+		var marker = new kakao.maps.Marker({
+		    position: new kakao.maps.LatLng(좌표[i][0], 좌표[i][1]), // 마커의 좌표
+		    map: map // 마커를 표시할 지도 객체
+		});
+
+		// 커스텀 오버레이를 생성하고 지도에 표시한다
+		var customOverlay = new kakao.maps.CustomOverlay({
+			map: map,
+			content: '<div style="padding:0 5px;background:#fff;">좌표[i][2] :D</div>', 
+			position: new kakao.maps.LatLng(37.56682, 126.97865), // 커스텀 오버레이를 표시할 좌표
+			xAnchor: 0.5, // 컨텐츠의 x 위치
+			yAnchor: 0 // 컨텐츠의 y 위치
+		});
+	}
 
 	</script>
 </body>
