@@ -45,10 +45,8 @@
 		}
 	}*/
 		
-		var i = 0;
-	
-		
-	for(i = 0; i < array.length; i++){
+	var i = 0;		
+	for(i = 0; i < 좌표.length; i++){
 		// 지도에 마커를 생성하고 표시한다
 		var marker = new kakao.maps.Marker({
 		    position: new kakao.maps.LatLng(좌표[i][0], 좌표[i][1]), // 마커의 좌표
