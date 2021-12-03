@@ -183,11 +183,11 @@
 		}
 
 		function search_index(str) {
-			for (i = 0;i < arr.length; i=i+2) {
-				if (좌표[i][2] == str) {
-					return i;
-				}
-			}
+            for (i = 0; i < 좌표.length; i++) {
+                if (좌표[i][2] == str) {
+                    return i;
+                }
+            }
         }
 	</script>
 </body>
