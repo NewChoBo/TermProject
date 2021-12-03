@@ -1,0 +1,75 @@
+<!doctype html>
+<!-- 이 페이지는 html이다 -->
+<html>
+<head>
+    <!-- 본문에 대한 설명 -->
+    <meta charset="utf-8"><!-- 해당 문서를 utf-8로 읽어라 -->
+    <title>등교길 프로그램</title><!-- 페이지의 이름을 알려주는 title 태그 -->
+</head>
+
+<body>
+	
+    <script>
+        var arr = ["조정규", NULL, "서일대학교", "택시"];
+
+		var 좌표 =
+			[[37.619676089470445, 127.04604451657029, "조정규"],
+			[37.74057235533961, 127.04416220657914, "김정환"],
+			[37.58738698493315, 127.09763955077234, "서일대정문"],
+			[37.58594139528723, 127.09702910792369, "서일대후문"],
+			[37.73835978635542, 127.04596476667973, "의정부역"],
+			[37.58645407585442, 127.09535128325798, "서일대후문역"],
+			[37.58783871436657, 127.09613711425644, "서일대정문역"],
+			[37.58868785089249, 127.08751339621581, "면목역"],
+			[37.636417051016934, 127.06803144464422, "하계역"],
+			[37.68959216813193, 127.04643917770629, "도봉산역"],
+			[37.588464263102, 127.0883085280956, "버스면목역"],
+			[37.6199895468102, 127.04510172786867, "북서울꿈의숲 정류장"]];
+
+        function search_index(str) {		//index 찾는 함수
+            for (i = 0; i < 좌표.length; i++) {
+                if (좌표[i][2] == str) {
+                    return i;
+                }
+            }
+		}
+
+		windows.alert(search_index("조정규"))
+
+		//------------세션스토리지 파트
+		var transportation;
+
+		function saver(str) {
+			transportation = str;
+		}
+
+		function store(input) {
+			if (!window.sessionStorage) {
+				alert("세션 스토리지를 지원하지 않습니다.");
+				return;
+			}
+			arr.push(input);
+			arr.push(transportation);
+			//arr.push("출발지점");
+			sessionStorage.setItem("key", JSON.stringify(arr));
+
+			//다음 페이지로 넘겨주는 코드
+			location.href = input + ".html";
+		}
+
+		function retrieve() {
+			if (!window.sessionStorage) {
+				alert("세션 스토리지를 지원하지 않습니다.");
+				return;
+			}
+			var val = sessionStorage.getItem("key");
+			if (val == null)
+				alert(item.value + "는 저장되지 않았습니다.");
+			else {
+				var arr = JSON.parse(val);//
+				console.log(arr) // [1,2,3,4,5]
+			}
+		}
+    </script>
+</body>
+</html>
