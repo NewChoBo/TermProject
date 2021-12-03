@@ -82,10 +82,13 @@
 			});
 		}
 
+		////////////////////////선긋는 파트
+		var color;
+        var start_index, end_index;
 		for (i = 2; i < arr.length; i = i + 2) {
 
 			//색상 정해주기
-			var color;
+			
 			switch (arr[i] + 1) {	//선 색상 정하기
 				case "도보":	color = '#FF0000'; break;
 				case "택시":	color = '#0f0f0f'; break;
@@ -95,8 +98,6 @@
 			}
 
 			//출발좌표와 도착좌표 구하기
-			var start_index, end_index;
-
 			start_index = search_index(arr[i-2]);
 			end_index = search_index(arr[i]);
 			
@@ -113,8 +114,18 @@
                 strokeOpacity: 0.9, // 선 투명도
                 strokeStyle: 'solid' // 선 스타일
             });
-        }
+		}
 
+
+        function search_index(str) {		//index 찾는 코드
+            for (i = 0; i < 좌표.length; i++) {
+                if (좌표[i][2] == str) {
+                    return i;
+                }
+            }
+		}
+
+		//------------세션스토리지 파트
 		var transportation;
 
 		function saver(str) {
@@ -148,14 +159,6 @@
 				console.log(arr) // [1,2,3,4,5]
 			}
 		}
-
-        function search_index(str) {
-            for (i = 0; i < 좌표.length; i++) {
-                if (좌표[i][2] == str) {
-                    return i;
-                }
-            }
-        }
 	</script>
 </body>
 </html>
