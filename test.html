@@ -63,34 +63,6 @@
 
 		// 지도를 생성한다
 		var map = new kakao.maps.Map(mapContainer, mapOption);
-		/*
-				// 지도에 마커를 생성하고 표시한다
-				var marker = new kakao.maps.Marker({
-					position: new kakao.maps.LatLng(37.56682, 126.97865), // 마커의 좌표
-					map: map // 마커를 표시할 지도 객체
-				});
-				// 커스텀 오버레이를 생성하고 지도에 표시한다
-				var customOverlay = new kakao.maps.CustomOverlay({
-					map: map,
-					content: '<div style="padding:0 5px;background:#fff;">HTML코드를 입력해주세요 :D</div>',
-					position: new kakao.maps.LatLng(37.56682, 126.97865), // 커스텀 오버레이를 표시할 좌표
-					xAnchor: 0.5, // 컨텐츠의 x 위치
-					yAnchor: 0 // 컨텐츠의 y 위치
-				});
-		*/
-
-
-		/*	for (int i=0;;i++){
-				if(좌표[i][2] == 검색한 역){
-					= i;
-					break;
-				}
-			}*/
-
-		//선을 표시하기 위한 코드
-		for (i = 2; i < 좌표.length; i = i + 2) {
-			line(arr[i-2], arr[i], arr[i + 1]);
-        }
 
 		for (i = 0; i < 좌표.length; i++) {
 			// 지도에 마커를 생성하고 표시한다
@@ -110,9 +82,44 @@
 			});
 		}
 
+		for (i = 2; i < arr.length; i = i + 2) {
+
+			//색상 정해주기
+			var color;
+			switch (arr[i] + 1) {	//선 색상 정하기
+				case "도보":	color = '#FF0000'; break;
+				case "택시":	color = '#0f0f0f'; break;
+				case "버스":	color = '#3839ba'; break;
+				case "지하철":	color = '#229217'; break;
+				default:		color = '#ffffff'; break;
+			}
+
+			//출발좌표와 도착좌표 구하기
+			var start_index, end_index;
+
+			start_index = search_index(arr[i-2]);
+			end_index = search_index(arr[i]);
+			
+
+            // 지도에 선을 표시한다 
+            var polyline = new kakao.maps.Polyline({
+                map: map, // 선을 표시할 지도 객체 
+                path: [ // 선을 구성하는 좌표 배열
+                    new kakao.maps.LatLng(좌표[start_index][0], 좌표[start_index][1]),
+                    new kakao.maps.LatLng(좌표[end_index][0], 좌표[end_index][1])
+                ],
+                strokeWeight: 5, // 선의 두께
+                strokeColor: color, // 선 색
+                strokeOpacity: 0.9, // 선 투명도
+                strokeStyle: 'solid' // 선 스타일
+            });
+        }
+
+	</script>
 
 
-		//함수선언부
+
+	<script>
 		var transportation;
 
 		function saver(str) {
@@ -147,42 +154,7 @@
 			}
 		}
 
-		function line(출발지, 도착지, 교통수단) {
-			//교통수단에 따른 색상 지정 코드
-			var color;
-			var 출발지_index = search_index(출발지);
-            var 도착지_index = search_index(도착지);
-
-			if (교통수단 == "도보") {
-				color = '#FF0000';
-			}
-			else if (교통수단 == "택시") {
-				color = '#0f0f0f';
-			}
-			else if (교통수단 == "버스") {
-				color = '#3839ba';
-			}
-			else if (교통수단 == "지하철") {
-				color = '#229217';
-			}
-			else {	//확인 안된경우
-                color = '#ffffff'
-            }
-
-            var polyline = new kakao.maps.Polyline({
-                map: map, // 선을 표시할 지도 객체 
-                path: [ // 선을 구성하는 좌표 배열
-                    new kakao.maps.LatLng(좌표[출발지_index][0], 좌표[도착지_index][0]),
-                    new kakao.maps.LatLng(좌표[출발지_index][1], 좌표[도착지_index][2])
-                ],
-                strokeWeight: 5, // 선의 두께
-                strokeColor: color, // 선 색
-                strokeOpacity: 0.9, // 선 투명도
-                strokeStyle: 'solid' // 선 스타일
-            });
-		}
-
-		function search_index(str) {
+        function search_index(str) {
             for (i = 0; i < 좌표.length; i++) {
                 if (좌표[i][2] == str) {
                     return i;
