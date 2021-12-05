@@ -118,9 +118,10 @@
 
 
         function search_index(str) {		//index 찾는 코드
-            for (i = 0; i < 좌표.length; i++) {
+			var j;
+            for (j = 0; j < 좌표.length; j++) {
                 if (좌표[i][2] == str) {
-                    return i;
+                    return j;
                 }
             }
 		}
