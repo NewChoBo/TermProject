@@ -10,137 +10,185 @@
 
       <h1><a href="index.html">등교길 프로그램</a></h1>
 
-      출발지 : ???집<br>
+      <script>
+			var arr = JSON.parse(sessionStorage.getItem("key"));
+		  	document.write("출발지 : " + arr[0][0] + "집");</script><br>
     
     <div id="map" style="width:1000px;height:1000px;"></div>
 
 	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8e81ae4f1450edf1f89b66036a4c5bd2"></script>
-	<script>		
-		//배열에 로그 가져오는 코드
-		  var val = sessionStorage.getItem("key");
-		  if (val == null)
-		      alert(item.value + "는 저장되지 않았습니다.");
-		  else {
-		      var arr = JSON.parse(val);//
-		  }
-		
-		//변수선언
-		var i = 0;
-		var 지도크기;
-		
-		if(arr[0] == "조정규"){i = 0; 지도크기 = 6;}
-		else if(arr[0] == "김정환"){i = 1; 지도크기 = 8;}
-			
-			
-		
-		//각 위치 좌표저장된 2차원배열
-		var 좌표 = 
-			[[37.619676089470445, 127.04604451657029, "조정규 집"],
-			[37.74057235533961, 127.04416220657914, "김정환집"],		 
-			[37.58738698493315, 127.09763955077234, "서일대정문"],
-			[37.58594139528723, 127.09702910792369, "서일대후문"],
-			[37.73835978635542, 127.04596476667973, "의정부역"],
-			[37.58645407585442, 127.09535128325798, "서일대후문역"],
-			[37.58783871436657, 127.09613711425644, "서일대정문역"],
-			[37.58868785089249, 127.08751339621581, "면목역"],
-			[37.636417051016934, 127.06803144464422, "하계역"],
-			[37.68959216813193, 127.04643917770629, "도봉산역"],		
-			[37.588464263102, 127.0883085280956, "버스면목역"],
-			[37.6199895468102, 127.04510172786867, "북서울꿈의숲 정류장"]];
-		
-		//조정규집 중심좌표, 김정환집 중심좌표
-		var 중심좌표 = [[(37.58738698493315 + 37.636417051016934)/2, (127.09763955077234 + 127.04604451657029)/2], [37.671130350971396, 127.070672977591]];
-		
-		
-		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-		    mapOption = {			    
-		        center: new kakao.maps.LatLng(중심좌표[i][0], 중심좌표[i][1]), // 지도의 중심좌표
-		        level: 지도크기, // 지도의 확대 레벨
-		        mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
-		    }; 
+	//지도와 오버레이 관련 코드들 
+	  
+<script>
+    //배열에 기록들 가져오는 코드========================
+    //        index에서 저장했던 기록들을 가져온다
+    var arr = JSON.parse(sessionStorage.getItem("key"));
+    var 좌표 = JSON.parse(sessionStorage.getItem("location_arr"));
+    //=================================================
 
-		// 지도를 생성한다 
-		var map = new kakao.maps.Map(mapContainer, mapOption); 
-/*
-		// 지도에 마커를 생성하고 표시한다
-		var marker = new kakao.maps.Marker({
-		    position: new kakao.maps.LatLng(37.56682, 126.97865), // 마커의 좌표
-		    map: map // 마커를 표시할 지도 객체
-		});
-		// 커스텀 오버레이를 생성하고 지도에 표시한다
-		var customOverlay = new kakao.maps.CustomOverlay({
-			map: map,
-			content: '<div style="padding:0 5px;background:#fff;">HTML코드를 입력해주세요 :D</div>', 
-			position: new kakao.maps.LatLng(37.56682, 126.97865), // 커스텀 오버레이를 표시할 좌표
-			xAnchor: 0.5, // 컨텐츠의 x 위치
-			yAnchor: 0 // 컨텐츠의 y 위치
-		});
-*/
+
+	//지도 생성 전 준비=================================
+	//중심좌표 잡기
+	var k = search_index(arr[0][0]);
+	var minX = 좌표[k][0];
+	var maxX = 좌표[k][0];
+	var minY = 좌표[k][1];
+	var maxY = 좌표[k][1];
+
+	search_index(arr[0][0]);
 	
-		
-/*	for (int i=0;;i++){
-		if(좌표[i][2] == 검색한 역){
-			= i;
-			break;
-		}
-	}*/
-		
-	for(i = 0; i < 좌표.length; i++){
-		// 지도에 마커를 생성하고 표시한다
-		var marker = new kakao.maps.Marker({
-		    position: new kakao.maps.LatLng(좌표[i][0], 좌표[i][1]), // 마커의 좌표
-		    map: map // 마커를 표시할 지도 객체
-		});
-
-		// 커스텀 오버레이를 생성하고 지도에 표시한다
-		var customOverlay = new kakao.maps.CustomOverlay({
-			map: map,
-			//content: '<div style="padding:0 5px;background:#fff;">document.write(좌표[i][2])</div>', 
-			content: '<div style="padding:0 5px;background:#fff;">' + 좌표[i][2] + '</div>',
-			position: new kakao.maps.LatLng(좌표[i][0], 좌표[i][1]), // 커스텀 오버레이를 표시할 좌표
-			xAnchor: 0.5, // 컨텐츠의 x 위치
-			yAnchor: 0 // 컨텐츠의 y 위치
-		});
+	for(var i = 0; i < arr.length; i++){
+		console.log(k);
+		k = search_index(arr[i][0]);
+		if(maxX < 좌표[k][0]) {maxX = 좌표[k][0]; console.log("maxX <" + k);}
+		if(minX > 좌표[k][0]) {minX = 좌표[k][0]; console.log("minX >" + k);}
+		if(maxY < 좌표[k][1]) {maxY = 좌표[k][1]; console.log("maxY <" + k);}
+		if(minY > 좌표[k][1]) {minY = 좌표[k][1]; console.log("minY >" + k);}
 	}
 
-	</script>
+	//지도크기 잡기
+	if(arr[0][0] == '조정규'){var mapSize = 6;}
+	else {var mapSize = 8;}
+	//=================================================
+    
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	    mapOption = {
+	        center: new kakao.maps.LatLng((minX + maxX)/2, (minY + maxY)/2), // 지도의 중심좌표
+	        level: mapSize, // 지도의 확대 레벨
+	        mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
+	    }; 
+	// 지도를 생성한다 
+	var map = new kakao.maps.Map(mapContainer, mapOption); 
+    
+
+/*	//=====좌표배열의 모든 좌표들을 지도에 마커와 커스텀 오버레이로 표시=====
+		for(var i = 0; i < 좌표.length; i++){			
+			// 지도에 마커를 생성하고 표시한다
+			var marker = new kakao.maps.Marker({
+				position: new kakao.maps.LatLng(좌표[i][0], 좌표[i][1]), // 마커의 좌표
+				map: map // 마커를 표시할 지도 객체
+			});
+
+			// 커스텀 오버레이를 생성하고 지도에 표시한다
+		//	var customOverlay = new kakao.maps.CustomOverlay({
+		//		map: map,
+		//		content: '<div style="padding:0 5px;background:#fff;">' + 좌표[i][2] + '</div>',
+		//		position: new kakao.maps.LatLng(좌표[i][0], 좌표[i][1]), // 커스텀 오버레이를 표시할 좌표
+		//		xAnchor: 0.5, // 컨텐츠의 x 위치
+		//		yAnchor: 0 // 컨텐츠의 y 위치
+		//	});
+
+			// 마커 위에 표시할 인포윈도우를 생성한다
+			var infowindow = new kakao.maps.InfoWindow({
+				//content : '<div style="padding:5px;">' + 좌표[i][2] +'</div>' // 인포윈도우에 표시할 내용
+				content : '<span class="info-title">' + 좌표[i][2] +'</span>'
+			});
+
+			// 인포윈도우를 지도에 표시한다
+			infowindow.open(map, marker);
+		}
+*/
+
+	//=====이동한 경로의 좌표들만 지도에 마커와 오버레이 띄우기	
+		for(var i = 0; i < arr.length; i++){
+			//arr의 i번째에 있는 장소의 인덱스값	
+			k = search_index(arr[i][0]);
+			
+			// 지도에 마커를 생성하고 표시한다
+			var marker = new kakao.maps.Marker({
+				position: new kakao.maps.LatLng(좌표[k][0], 좌표[k][1]), // 마커의 좌표
+				map: map // 마커를 표시할 지도 객체
+			});
+
+			/*// 커스텀 오버레이를 생성하고 지도에 표시한다
+			var customOverlay = new kakao.maps.CustomOverlay({
+				map: map,
+				content: '<div style="padding:0 5px;background:#fff;">' + 좌표[i][2] + '</div>',
+				position: new kakao.maps.LatLng(좌표[i][0], 좌표[i][1]), // 커스텀 오버레이를 표시할 좌표
+				xAnchor: 0.5, // 컨텐츠의 x 위치
+				yAnchor: 0 // 컨텐츠의 y 위치
+			});*/
+
+			// 마커 위에 표시할 인포윈도우를 생성한다
+			var infowindow = new kakao.maps.InfoWindow({
+				//content : '<div style="padding:5px;">' + 좌표[k][2] +'</div>' // 인포윈도우에 표시할 내용
+				content : '<span class="info-title">' + 좌표[k][2] +'</span>'
+			});
+
+			// 인포윈도우를 지도에 표시한다
+			infowindow.open(map, marker);
+		}
+
+	
+	//선 색상 정하기
+    var color;	
+	//이동경로에 맞춰 선을 그어주는 코드
+    for(var i = 1; i < arr.length; i++){
+        switch (arr[i][1]) {	//선 색상 정하기
+			case "도보":	color = '#FF0000'; break;
+			case "택시":	color = '#0f0f0f'; break;
+			case "버스":	color = '#3839ba'; break;
+			case "지하철":	color = '#229217'; break;
+			default:		color = '#ffffff'; break;
+		}
+        
+        var	startPoint = search_index(arr[i-1][0]);
+		var	endPoint = search_index(arr[i][0]);
+        
+        var polyline = new kakao.maps.Polyline({
+        map: map, // 선을 표시할 지도 객체 
+        path: [ // 선을 구성하는 좌표 배열
+            new kakao.maps.LatLng(좌표[startPoint][0], 좌표[startPoint][1]),
+            new kakao.maps.LatLng(좌표[endPoint][0], 좌표[endPoint][1])
+        ],
+
+        strokeWeight: 3, // 선의 두께
+        strokeColor: color, // 선 색
+        strokeOpacity: 0.9, // 선 투명도
+        strokeStyle: 'solid' // 선 스타일
+    });
+    }
+    
+	//=====이름을 대면 좌표인덱스를 가져오는 함수=====
+    function search_index(str) {
+            for(var j = 0; j < 좌표.length; j++){
+				if(str == 좌표[j][2]){return j;}
+			}
+			return console.log("존재하지 않는 좌표입니다");
+        }
 
 
+		//Javascript - infoWindow  CSS 강제로 변경하기
+		//아래 코드는 지도 DATA를 불러온 이후에 실행되어야 합니다.	(지도에 마커가 모두 표시된 이후...)
+		var infoTitle = document.querySelectorAll('.info-title');
+		infoTitle.forEach(function(e) {
+			var w = e.offsetWidth + 20;
+			var ml = w/2;
+			e.parentElement.style.top = "82px";
+			e.parentElement.style.left = "50%";
+			e.parentElement.style.marginLeft = -ml+"px";
+			e.parentElement.style.width = w+"px";
+			e.parentElement.previousSibling.style.display = "none";
+			e.parentElement.parentElement.style.border = "0px";
+			e.parentElement.parentElement.style.background = "unset";
+		});		
+</script>
 
-      <script>
-          var transportation;
 
-          function saver(str) {
-              transportation = str;
-          }
+<!-- css 파트 -->
+<style>
+	/*인포윈도우 디자인*/
+	.info-title {
+		display: block;
+		background: #50627F;
+		color: #fff;
+		text-align: center;
+		height: 24px;
+		line-height:22px;
+		border-radius:4px;
+		padding:0px 10px;
+	}
+</style>
 
-          function store(input) {
-              if (!window.sessionStorage) {
-                  alert("세션 스토리지를 지원하지 않습니다.");
-                  return;
-              }
-              arr.push(input);
-              arr.push(transportation);
-              //arr.push("출발지점");
-              sessionStorage.setItem("key", JSON.stringify(arr));
-
-              //다음 페이지로 넘겨주는 코드
-              location.href = input + ".html";
-          }
-
-          function retrieve() {
-              if (!window.sessionStorage) {
-                  alert("세션 스토리지를 지원하지 않습니다.");
-                  return;
-              }
-              var val = sessionStorage.getItem("key");
-              if (val == null)
-                  alert(item.value + "는 저장되지 않았습니다.");
-              else {
-                  var arr = JSON.parse(val);//
-                  console.log(arr) // [1,2,3,4,5]
-              }
-          }
-      </script>
   </body>
 </html>

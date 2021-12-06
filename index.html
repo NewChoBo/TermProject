@@ -13,32 +13,44 @@
       <h2><a href="test.html">test</a></h2>
       
 
-      <!-- 세션스토리지 예시
-    품목명 : <input id="item" type="text" size="10">
-    개수 : <input id="count" type="text" size="10">
-    <button id="save" onclick="store()">저장</button>
-    <button id="retrieve" onclick="retrieve()">검색</button>
-    -->
-
       <button type="button" onclick=store("김정환")>김정환</button>
       <button type="button" onclick=store("조정규")>조정규</button>
 
 
       <!-- 자바스크립트 코드 -->
       <script>
-          var arr = []
+        //좌표, 이동경로 배열 ========초기화============================
+        var arr = [];
+        var 좌표 =
+            [[37.619676089470445, 127.04604451657029, "조정규"],
+            [37.74057235533961, 127.04416220657914, "김정환"],
+            [37.58644964881051, 127.09800629219075, "서일대학교"],
+            [37.58738698493315, 127.09763955077234, "서일대정문"],
+            [37.58594139528723, 127.09702910792369, "서일대후문"],
+            [37.58645407585442, 127.09535128325798, "서일대후문역"],
+            [37.58783871436657, 127.09613711425644, "서일대정문역"],
+            [37.58868785089249, 127.08751339621581, "면목역"],
+            
+        	[37.6199895468102, 127.04510172786867, "북서울꿈의숲 정류장"],
+            [37.636417051016934, 127.06803144464422, "하계역"],
+        	[37.6174291025704, 127.07490361889523, "태릉입구역"],
+        	[37.61066386711325, 127.05660017190282, "돌곶이역"],
 
-          var item = document.getElementById("item");
-          var count = document.getElementById("count");
+            [37.73835978635542, 127.04596476667973, "의정부역"],
+            [37.68959216813193, 127.04643917770629, "도봉산역"],
+            [37.588464263102, 127.0883085280956, "버스면목역"]]
+
+        sessionStorage.setItem("key", JSON.stringify(arr));             //location_arr 을 키값으로 좌표 저장해두기
+        sessionStorage.setItem("location_arr", JSON.stringify(좌표));   //location_arr 을 키값으로 좌표 저장해두기
+        //============================================================
 
           function store(input, transportation) {
               if (!window.sessionStorage) {
                   alert("세션 스토리지를 지원하지 않습니다.");
                   return;
               }
-              arr.push(input);
-              arr.push(transportation);
-              //arr.push("출발지점");
+              arr.push([input, transportation]);
+
               sessionStorage.setItem("key", JSON.stringify(arr));
 
               //다음 페이지로 넘겨주는 코드
