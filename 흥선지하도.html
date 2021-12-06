@@ -45,22 +45,21 @@
         //arr 세션스토리지에 업데이트
         var transportation;
 
-            function saver(str) {
-                transportation = str;
-            }
+        function saver(str) {
+            transportation = str;
+        }
 
-            function store(input) {
-                if (!window.sessionStorage) {
-                    alert("세션 스토리지를 지원하지 않습니다.");
-                    return;
-                }
-                arr.push([input, transportation]);
-                //arr.push("출발지점");
-                sessionStorage.setItem("key", JSON.stringify(arr));
-
-                //다음 페이지로 넘겨주는 코드
-                location.href = input + ".html";
+        function store(input) {
+            if (!window.sessionStorage) {
+                alert("세션 스토리지를 지원하지 않습니다.");
+                return;
             }
+            arr.push([input, transportation]);
+            //arr.push("출발지점");
+            sessionStorage.setItem("key", JSON.stringify(arr));
+
+            //다음 페이지로 넘겨주는 코드
+            location.href = input + ".html";
         }
       </script>
 

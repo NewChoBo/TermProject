@@ -26,6 +26,7 @@
       <button type="button" onclick=saver("택시");store("면목역")>면목역</button>
       <button type="button" onclick=saver("택시");store("서일대학교")>서일대학교</button>
 
+      
       <script>
         //배열에 기록들 가져오는 코드========================
         //        index에서 저장했던 기록들을 가져온다
@@ -45,22 +46,21 @@
         //arr 세션스토리지에 업데이트
         var transportation;
 
-            function saver(str) {
-                transportation = str;
-            }
+        function saver(str) {
+            transportation = str;
+        }
 
-            function store(input) {
-                if (!window.sessionStorage) {
-                    alert("세션 스토리지를 지원하지 않습니다.");
-                    return;
-                }
-                arr.push([input, transportation]);
-                //arr.push("출발지점");
-                sessionStorage.setItem("key", JSON.stringify(arr));
-
-                //다음 페이지로 넘겨주는 코드
-                location.href = input + ".html";
+        function store(input) {
+            if (!window.sessionStorage) {
+                alert("세션 스토리지를 지원하지 않습니다.");
+                return;
             }
+            arr.push([input, transportation]);
+            //arr.push("출발지점");
+            sessionStorage.setItem("key", JSON.stringify(arr));
+
+            //다음 페이지로 넘겨주는 코드
+            location.href = input + ".html";
         }
       </script>
   </body>
