@@ -16,15 +16,15 @@
       <br>
      
       도보<br>     
-      <button type="button" onclick=saver("도보");store("북서울꿈의숲역")>집 -> 북서울꿈의숲 역 </button>
-      <button type="button" onclick=saver("도보");store("참누리아파트역")>집 -> 참누리아파트 역</button>
+      <button type="button" onclick=timer(2);saver("도보");store("북서울꿈의숲역")>집 -> 북서울꿈의숲 역 </button>
+      <button type="button" onclick=timer(10);saver("도보");store("참누리아파트역")>집 -> 참누리아파트 역</button>
 
       <br>
       택시<br>
-      <button type="button" onclick=saver("택시");store("면목역2번출구")>면목역 2번출구</button>
-      <button type="button" onclick=saver("택시");store("돌곶이역")>돌곶이역</button>
-      <button type="button" onclick=saver("택시");store("면목역")>면목역</button>
-      <button type="button" onclick=saver("택시");store("서일대학교")>서일대학교</button>
+      <button type="button" onclick=timer(15);saver("택시");store("면목역2번출구")>면목역 2번출구</button>
+      <button type="button" onclick=timer(12);saver("택시");store("돌곶이역")>돌곶이역</button>
+      <button type="button" onclick=timer(38);saver("택시");store("면목역")>면목역</button>
+      <button type="button" onclick=timer(45);saver("택시");store("서일대학교")>서일대학교</button>
 
       
       <script>
@@ -44,10 +44,15 @@
 
 
         //arr 세션스토리지에 업데이트
-        var transportation;
+          var transportation;
+          var timer;
 
         function saver(str) {
             transportation = str;
+          }
+
+        function timer(str) {
+            timer = str;
         }
 
         function store(input) {
@@ -55,7 +60,7 @@
                 alert("세션 스토리지를 지원하지 않습니다.");
                 return;
             }
-            arr.push([input, transportation]);
+            arr.push([input, transportation, timer]);
             //arr.push("출발지점");
             sessionStorage.setItem("key", JSON.stringify(arr));
 
