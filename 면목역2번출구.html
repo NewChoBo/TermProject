@@ -19,20 +19,19 @@
       <br>
       버스<br>
      
-      <button type="button" onclick=saver("버스");store("서일대학교정문역")>면목역 2번출구 -> 서일대학교 정문역( 02,2230,2013 )</button>
-      <button type="button" onclick=saver("버스");store("서일대학교후문역")>면목역 2번출구 -> 서일대학교 후문역( 02,2230,2013 )</button>
+      <button type="button" onclick=timer(7);saver("버스");store("서일대학교정문역")>면목역 2번출구 -> 서일대학교 정문역( 02,2230,2013 )</button>
+      <button type="button" onclick=timer(9);saver("버스");store("서일대학교후문역")>면목역 2번출구 -> 서일대학교 후문역( 02,2230,2013 )</button>
 
       <br>
       도보<br>
-      <button type="button" onclick=saver("서일대학교");store("서일대학교")>면목역 2번출구 -> 서일대학교</button>
+      <button type="button" onclick=timer(22);saver("도보");store("서일대학교")>면목역 2번출구 -> 서일대학교</button>
 
       <br>
       택시<br>
       
-      <button type="button" onclick=saver("택시");store("서일대학교")>서일대학교</button>
+      <button type="button" onclick=timer(8);saver("택시");store("서일대학교")>서일대학교</button>
 
 </div>
-<script src="./script.js"></script>
-
+    <script src="./script.js"></script>
   </body>
 </html>
