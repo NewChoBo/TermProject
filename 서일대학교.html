@@ -20,7 +20,19 @@
     <div id="map" style="width:1000px;height:1000px;"></div>
 
 	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8e81ae4f1450edf1f89b66036a4c5bd2"></script>
-	//지도와 오버레이 관련 코드들 
+	
+	교통수단별 선 색상<br>
+	도보 : 빨간색<br>
+	버스 : 남색<br>
+	지하철 : 초록색<br>
+	택시 : 보라색<br>
+
+	<script>
+		var sum = 0;
+		for(var num = 1; num < arr.length; num++){
+			sum+=arr[num][2];
+		}
+		document.write("총 이동시간 : " + sum);</script>
 	  
 <script>
     //배열에 기록들 가져오는 코드========================
@@ -125,11 +137,11 @@
 	//이동경로에 맞춰 선을 그어주는 코드
     for(var i = 1; i < arr.length; i++){
         switch (arr[i][1]) {	//선 색상 정하기
-			case "도보":	color = '#FF0000'; break;
-			case "택시":	color = '#0f0f0f'; break;
-			case "버스":	color = '#3839ba'; break;
-			case "지하철":	color = '#229217'; break;
-			default:		color = '#ffffff'; break;
+			case "도보":	color = '#FF0000'; break;		//빨간색
+			case "택시":	color = '#0f0f0f'; break;		//보라색
+			case "버스":	color = '#3839ba'; break;		//남색(파란)
+			case "지하철":	color = '#229217'; break;		//초록색
+			default:		color = '#ffffff'; break;		//흰색
 		}
         
         var	startPoint = search_index(arr[i-1][0]);
