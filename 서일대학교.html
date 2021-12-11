@@ -2,21 +2,24 @@
 <html>
   <head><!-- 본문에 대한 설명 -->
     <meta charset = "utf-8"><!-- 해당 문서를 utf-8로 읽어라 -->
-    <title>등교길 프로그램</title><!-- 페이지의 이름을 알려주는 title 태그 -->
+    <title>등교길 프로그램</title>
+	<link href="style.css" rel="stylesheet" type="text/css" /><!-- 페이지의 이름을 알려주는 title 태그 -->
   </head>
 
   <body>
       <!-- 본문을 감싸는 태그 -->
+	  <img class="road" src="https://ifh.cc/g/MGf4z4.jpg">
 
+      <div class="wrap">
       <h1><a href="index.html">등교길 프로그램</a></h1>
-
+	  </div>
       <script>
 			var arr = JSON.parse(sessionStorage.getItem("key"));
 		  	document.write("출발지 : " + arr[0][0] + "집");</script><br>
     
     <div id="map" style="width:1000px;height:1000px;"></div>
 
-	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8e81ae4f1450edf1f89b66036a4c5bd2"></script>
+	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a94e5740b095b1dd04f8701437ecc816"></script>
 	//지도와 오버레이 관련 코드들 
 	  
 <script>
@@ -68,7 +71,6 @@
 				position: new kakao.maps.LatLng(좌표[i][0], 좌표[i][1]), // 마커의 좌표
 				map: map // 마커를 표시할 지도 객체
 			});
-
 			// 커스텀 오버레이를 생성하고 지도에 표시한다
 		//	var customOverlay = new kakao.maps.CustomOverlay({
 		//		map: map,
@@ -77,13 +79,11 @@
 		//		xAnchor: 0.5, // 컨텐츠의 x 위치
 		//		yAnchor: 0 // 컨텐츠의 y 위치
 		//	});
-
 			// 마커 위에 표시할 인포윈도우를 생성한다
 			var infowindow = new kakao.maps.InfoWindow({
 				//content : '<div style="padding:5px;">' + 좌표[i][2] +'</div>' // 인포윈도우에 표시할 내용
 				content : '<span class="info-title">' + 좌표[i][2] +'</span>'
 			});
-
 			// 인포윈도우를 지도에 표시한다
 			infowindow.open(map, marker);
 		}

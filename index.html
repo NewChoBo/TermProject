@@ -2,12 +2,15 @@
 <html>
   <head><!-- 본문에 대한 설명 -->
     <meta charset = "utf-8"><!-- 해당 문서를 utf-8로 읽어라 -->
+    <link href="style.css" rel="stylesheet" type="text/css" />
     <title>등교길 프로그램</title><!-- 페이지의 이름을 알려주는 title 태그 -->
   </head>
 
   <body>
       <!-- 본문을 감싸는 태그 -->
+      <img class="road" src="https://ifh.cc/g/MGf4z4.jpg">
 
+      <div class="wrap">
       <h1><a onclick=sessionStorage.clear(); href="index.html">등교길 프로그램</a></h1>   <!-- 세션스토리지를 비우고, 하이퍼링크로 이동(처음부터 다시시작) -->
 
       <h2><a href="test.html">test</a></h2>
@@ -16,7 +19,7 @@
       <button type="button" onclick=store("김정환")>김정환</button>
       <button type="button" onclick=store("조정규")>조정규</button>
 
-
+      </div>
       <!-- 자바스크립트 코드 -->
       <script>
         //좌표, 이동경로 배열 ========초기화============================
